@@ -1,0 +1,2 @@
+Main-Class: info.kgeorgiy.ja.antonov.implementor.main.Implementor
+Class-Path: info.kgeorgiy.java.advanced.implementor.jar

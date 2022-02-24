@@ -1,0 +1,17 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+/out/
+
+!java-solutions/info.kgeorgiy.ja.antonov.implementor.main.jar
+
+
+
+
+*.class
+*.idea
+*.iml
+*.jar
+*.DS_Store
+
+*/myTests/
