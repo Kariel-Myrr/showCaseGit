@@ -1,2 +1,2 @@
-# showCaseGit
+# Showcase git
 my most interesting projects
