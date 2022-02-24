@@ -23,6 +23,6 @@ my most interesting projects
 ## Андроид:
 - Приложение для хождения в сеть на корутинах:
   - *[Тестированное(Работает)](https://github.com/Kariel-Myrr/showcaseGit/tree/main/android/pure-tested/network_app)*
-  - *[Более опрятное, но протестировать не удалось. Проблемы у сервиса](https://github.com/Kariel-Myrr/showcaseGit/tree/main/android/cleaned-no_tests/network_app)*
+  - *[Более опрятная версия](https://github.com/Kariel-Myrr/showcaseGit/tree/main/android/cleaned-no_tests/network_app)*
 
 
