@@ -36,9 +36,8 @@ class PhotoAdapter(
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int){
         report("onBind :: bind to $position")
         if(isBound) {
-            report("onBind :: getting small Photo")
             val photo = photoService.getSmallPhotoFastAndNotify(position)
-            holder.bind(photoService.photos[position], photo)
+            holder.bind(photoService.photos[position], photo ?: defaultBitmap)
         } else {
             report("onBind :: defaultCard")
             holder.bind(null, defaultBitmap)

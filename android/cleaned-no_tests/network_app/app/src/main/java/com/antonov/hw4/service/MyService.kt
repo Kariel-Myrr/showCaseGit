@@ -114,36 +114,43 @@ class MyService : Service() {
     }
 
     suspend fun getSmallPhoto(ind: Int): Bitmap? {
+        report("Getting small photo")
         if (ind < 0 || ind >= photos.size) return null
         val small = photos[ind].urls?.small ?: return null
 
-        return cashSmallPhoto[small] ?: downloadSmallPhoto(small)
+        return cashSmallPhoto.getOrElse(small) {
+            downloadSmallPhoto(small)
+        }
     }
 
     fun getSmallPhotoFastAndNotify(ind : Int) : Bitmap?{
+        report("Getting small photo fast")
         if (ind < 0 || ind >= photos.size) return null
         val small = photos[ind].urls?.small ?: return null
-        return if(cashSmallPhoto.contains(small)){
-            cashSmallPhoto[small]
-        } else {
+
+        return cashSmallPhoto.getOrElse(small) {
             ioScope.launch {
-                downloadSmallPhoto(small)
+                getSmallPhoto(ind)
             }
             null
         }
     }
 
     private suspend fun downloadSmallPhoto(small: String): Bitmap {
+        report("Downloading small photo $small")
         val connection: URLConnection = URL(small).openConnection()
         val ph = BitmapFactory.decodeStream(connection.getInputStream())
-        cashSmallPhoto[small] = ph
+        cashSmallPhoto.putIfAbsent(small, ph)
+        report("Photo cached")
         return ph
     }
 
     suspend fun getFullPhoto(ind: Int, width: Int): Bitmap? {
         if (ind < 0 || ind >= photos.size) return null
         val full = photos[ind].urls?.full ?: return null
-        return cashFullPhoto[full] ?: downloadFullPhoto(full, width)
+        return cashFullPhoto.getOrElse(full) {
+            downloadFullPhoto(full, width)
+        }
     }
 
     private fun downloadFullPhoto(full: String, width: Int): Bitmap? {
@@ -153,7 +160,7 @@ class MyService : Service() {
             Bitmap.createScaledBitmap(bitmap, width, bitmap.height * width / bitmap.width, false)
         bitmap.recycle()
         if (ph != null) {
-            cashFullPhoto[full] = ph
+            cashFullPhoto.putIfAbsent(full, ph)
         }
         return ph
     }

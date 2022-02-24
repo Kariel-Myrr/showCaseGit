@@ -47,6 +47,9 @@ class MainActivity : AppCompatActivity() {
             myService = binderBridge.getMyService()
             isBound = true
             val valService = myService!!
+            when(val adapter = recycler.adapter){
+                is PhotoAdapter -> adapter.isBound = true
+            }
 
             if (valService.photos.isNotEmpty()) {
                 setUpPhotos()
@@ -120,6 +123,9 @@ class MainActivity : AppCompatActivity() {
                     {
                         showHiResPhoto(it)
                     }
+            }
+            when(val adapter = recycler.adapter){
+                is PhotoAdapter -> adapter.isBound = true
             }
         } else {
             toast("PhotoService not connected")
